@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#cd ../..
+
+# custom config
+
+# DATA=/path/to/datasets
+DATA=/home/yzq/yzq_data
+TRAINER=CoCoOp
+
+DATASET=$1
+CFG=vit_b16_c4_ep10_batch1_ctxv1
+SHOTS=$2
+# 自定义几shot
+
+for SEED in 1 2 3
+do
+    DIR=OUTPUT/${TRAINER}/${DATASET}/${CFG}_${SHOTS}shots/seed${SEED}
+    if [ -d "$DIR" ]; then
+        echo "Results are available in ${DIR}. Skip this job"
+    else
+        echo "Run this job and save the output to ${DIR}"
+        python train.py \
+        --root ${DATA} \
+        --seed ${SEED} \
+        --trainer ${TRAINER} \
+        --dataset-config-file configs/datasets/${DATASET}.yaml \
+        --config-file configs/trainers/${TRAINER}/${CFG}.yaml \
+        --output-dir ${DIR} \
+        DATASET.NUM_SHOTS ${SHOTS}
+    fi
+done

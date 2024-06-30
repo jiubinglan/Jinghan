@@ -1,0 +1,49 @@
+---------------------
+now is 16shot traing.
+now the 16shot traing is done.
+---------------------
+---------------------
+now is 8shot traing.
+now the 8shot traing is done.
+---------------------
+---------------------
+now is 4shot traing.
+now the 4shot traing is done.
+---------------------
+---------------------
+now is 2shot traing.
+now the 2shot traing is done.
+---------------------
+---------------------
+now is 1shot traing.
+now the 1shot traing is done.
+---------------------
+---------------------
+Parsing results...
+---------------------
+---------------------
+now is 16shot parsing.
+* accuracy: 95.27% +- 0.84%
+now the 16shot parsing is done.
+---------------------
+---------------------
+now is 8shot parsing.
+* accuracy: 95.37% +- 0.97%
+now the 8shot parsing is done.
+---------------------
+---------------------
+now is 4shot parsing.
+* accuracy: 92.03% +- 0.69%
+now the 4shot parsing is done.
+---------------------
+---------------------
+now is 2shot parsing.
+* accuracy: 88.07% +- 3.01%
+now the 2shot parsing is done.
+---------------------
+---------------------
+now is 1shot parsing.
+* accuracy: 84.33% +- 3.69%
+now the 1shot parsing is done.
+---------------------
+All done!
