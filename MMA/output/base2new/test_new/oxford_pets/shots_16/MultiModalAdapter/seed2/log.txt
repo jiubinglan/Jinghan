@@ -1,0 +1,287 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/MultiModalAdapter/vit_b16_ep5.yaml
+dataset_config_file: configs/datasets/oxford_pets.yaml
+eval_only: True
+head: 
+load_epoch: 5
+model_dir: output/base2new/train_base/oxford_pets/shots_16/MultiModalAdapter/seed2
+no_train: False
+opts: ['DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'new']
+output_dir: output/base2new/test_new/oxford_pets/shots_16/MultiModalAdapter/seed2
+resume: 
+root: D:\Code\Data
+seed: 2
+source_domains: None
+target_domains: None
+trainer: MultiModalAdapter
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 16
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordPets
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: D:\Code\Data
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: new
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.0015
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 5
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 0
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: linear
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/base2new/test_new/oxford_pets/shots_16/MultiModalAdapter/seed2
+RESUME: 
+SEED: 2
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MMADAPTER:
+    ADAPTER_DIM: 32
+    ADAPTER_END: 12
+    ADAPTER_SCALE: 0.001
+    ADAPTER_START: 5
+    PREC: amp
+    TEXT_CTX_INIT: a photo of a
+  MME:
+    LMDA: 0.1
+  NAME: MultiModalAdapter
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 2.3.1+cu121
+Is debug build: False
+CUDA used to build PyTorch: 12.1
+ROCM used to build PyTorch: N/A
+
+OS: Microsoft Windows 11 ×¨Òµ°æ
+GCC version: Could not collect
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: N/A
+
+Python version: 3.8.19 (default, Mar 20 2024, 19:55:45) [MSC v.1916 64 bit (AMD64)] (64-bit runtime)
+Python platform: Windows-10-10.0.22621-SP0
+Is CUDA available: True
+CUDA runtime version: Could not collect
+CUDA_MODULE_LOADING set to: LAZY
+GPU models and configuration: GPU 0: NVIDIA GeForce RTX 4070 Ti SUPER
+Nvidia driver version: 555.99
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+CPU:
+Architecture=9
+CurrentClockSpeed=3500
+DeviceID=CPU0
+Family=205
+L2CacheSize=20480
+L2CacheSpeed=
+Manufacturer=GenuineIntel
+MaxClockSpeed=3500
+Name=13th Gen Intel(R) Core(TM) i5-13600KF
+ProcessorType=3
+Revision=
+
+Versions of relevant libraries:
+[pip3] flake8==3.7.9
+[pip3] numpy==1.24.3
+[pip3] torch==2.3.1+cu121
+[pip3] torchaudio==2.3.1+cu121
+[pip3] torchvision==0.18.1
+[conda] blas                      1.0                         mkl  
+[conda] cudatoolkit               10.2.89              h74a9793_1  
+[conda] mkl                       2021.4.0                 pypi_0    pypi
+[conda] mkl-service               2.4.0            py38h2bbff1b_0  
+[conda] mkl_fft                   1.3.1            py38h277e83a_0  
+[conda] mkl_random                1.2.2            py38hf11a4ad_0  
+[conda] numpy                     1.24.3           py38hf95b240_0  
+[conda] numpy-base                1.24.3           py38h005ec55_0  
+[conda] pytorch-mutex             1.0                         cpu    pytorch
+[conda] torch                     2.3.1+cu121              pypi_0    pypi
+[conda] torchaudio                2.3.1+cu121              pypi_0    pypi
+[conda] torchvision               0.18.1                 py38_cpu    pytorch
+        Pillow (10.3.0)
+
+Loading trainer: MultiModalAdapter
+Loading dataset: OxfordPets
+Reading split from D:\Code\Data\oxford_pets\split_zhou_OxfordPets.json
+Loading preprocessed few-shot data from D:\Code\Data\oxford_pets\split_fewshot\shot_16-seed_2.pkl
+SUBSAMPLE NEW CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ----------
+Dataset    OxfordPets
+# classes  18
+# train_x  288
+# val      72
+# test     1,788
+---------  ----------
+Loading CLIP (backbone: ViT-B/16)
+Building custom CLIP
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'adapter_learner.text_adapter.12.down.0.weight', 'adapter_learner.text_adapter.10.up.bias', 'adapter_learner.text_adapter.5.up.bias', 'adapter_learner.visual_adapter.8.down.0.bias', 'adapter_learner.shared_adapter.11.0.bias', 'adapter_learner.text_adapter.8.down.0.bias', 'adapter_learner.visual_adapter.5.down.0.bias', 'adapter_learner.shared_adapter.12.0.bias', 'adapter_learner.text_adapter.11.up.bias', 'adapter_learner.visual_adapter.5.up.weight', 'adapter_learner.shared_adapter.10.0.weight', 'adapter_learner.visual_adapter.6.up.bias', 'adapter_learner.text_adapter.7.down.0.weight', 'adapter_learner.visual_adapter.12.down.0.weight', 'adapter_learner.text_adapter.5.down.0.bias', 'adapter_learner.visual_adapter.11.up.bias', 'adapter_learner.shared_adapter.6.0.bias', 'adapter_learner.visual_adapter.11.down.0.weight', 'adapter_learner.text_adapter.12.down.0.bias', 'adapter_learner.text_adapter.6.down.0.bias', 'adapter_learner.text_adapter.8.down.0.weight', 'adapter_learner.visual_adapter.10.down.0.weight', 'adapter_learner.text_adapter.5.up.weight', 'adapter_learner.text_adapter.6.up.weight', 'adapter_learner.visual_adapter.10.up.weight', 'adapter_learner.visual_adapter.9.down.0.bias', 'adapter_learner.text_adapter.10.down.0.weight', 'adapter_learner.shared_adapter.8.0.bias', 'adapter_learner.shared_adapter.9.0.bias', 'adapter_learner.shared_adapter.10.0.bias', 'adapter_learner.shared_adapter.6.0.weight', 'adapter_learner.visual_adapter.6.down.0.bias', 'adapter_learner.visual_adapter.8.up.bias', 'adapter_learner.text_adapter.10.down.0.bias', 'adapter_learner.text_adapter.9.up.bias', 'adapter_learner.text_adapter.12.up.bias', 'adapter_learner.visual_adapter.12.up.weight', 'adapter_learner.visual_adapter.12.down.0.bias', 'adapter_learner.visual_adapter.9.up.bias', 'adapter_learner.text_adapter.7.up.bias', 'adapter_learner.visual_adapter.5.up.bias', 'adapter_learner.text_adapter.6.up.bias', 'adapter_learner.visual_adapter.8.down.0.weight', 'adapter_learner.shared_adapter.8.0.weight', 'adapter_learner.text_adapter.11.up.weight', 'adapter_learner.visual_adapter.12.up.bias', 'adapter_learner.text_adapter.9.down.0.weight', 'adapter_learner.text_adapter.7.down.0.bias', 'adapter_learner.visual_adapter.7.up.weight', 'adapter_learner.shared_adapter.5.0.weight', 'adapter_learner.visual_adapter.5.down.0.weight', 'adapter_learner.text_adapter.10.up.weight', 'adapter_learner.visual_adapter.10.up.bias', 'adapter_learner.shared_adapter.12.0.weight', 'adapter_learner.text_adapter.6.down.0.weight', 'adapter_learner.text_adapter.9.down.0.bias', 'adapter_learner.visual_adapter.7.down.0.bias', 'adapter_learner.visual_adapter.11.down.0.bias', 'adapter_learner.visual_adapter.10.down.0.bias', 'adapter_learner.text_adapter.9.up.weight', 'adapter_learner.visual_adapter.6.down.0.weight', 'adapter_learner.visual_adapter.9.up.weight', 'adapter_learner.visual_adapter.9.down.0.weight', 'adapter_learner.visual_adapter.6.up.weight', 'adapter_learner.shared_adapter.5.0.bias', 'adapter_learner.shared_adapter.11.0.weight', 'adapter_learner.shared_adapter.7.0.weight', 'adapter_learner.visual_adapter.7.down.0.weight', 'adapter_learner.text_adapter.7.up.weight', 'adapter_learner.visual_adapter.8.up.weight', 'adapter_learner.text_adapter.11.down.0.bias', 'adapter_learner.text_adapter.8.up.bias', 'adapter_learner.text_adapter.8.up.weight', 'adapter_learner.shared_adapter.7.0.bias', 'adapter_learner.text_adapter.11.down.0.weight', 'adapter_learner.text_adapter.5.down.0.weight', 'adapter_learner.visual_adapter.11.up.weight', 'adapter_learner.visual_adapter.7.up.bias', 'adapter_learner.text_adapter.12.up.weight', 'adapter_learner.shared_adapter.9.0.weight'}
+Number of trainable parameters: 674560
+Loading evaluator: Classification
+Loading weights to adapter_learner from "output/base2new/train_base/oxford_pets/shots_16/MultiModalAdapter/seed2\adapter_learner\model.pth.tar-5" (epoch = 5)
+Evaluate on the *test* set
+=> result
+* total: 1,788
+* correct: 1,750
+* accuracy: 97.9%
+* error: 2.1%
+* macro_f1: 97.9%

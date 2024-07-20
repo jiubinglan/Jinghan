@@ -1,0 +1,387 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/MultiModalAdapter/vit_b16_ep5.yaml
+dataset_config_file: configs/datasets/oxford_pets.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['DATASET.NUM_SHOTS', '16', 'DATASET.SUBSAMPLE_CLASSES', 'base']
+output_dir: output/base2new/train_base/oxford_pets/shots_16/MultiModalAdapter/seed2
+resume: 
+root: D:\Code\Data
+seed: 2
+source_domains: None
+target_domains: None
+trainer: MultiModalAdapter
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 100
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 16
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordPets
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: D:\Code\Data
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: base
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('random_resized_crop', 'random_flip', 'normalize')
+MODEL:
+  BACKBONE:
+    NAME: ViT-B/16
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.0015
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 5
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 0
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: linear
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/base2new/train_base/oxford_pets/shots_16/MultiModalAdapter/seed2
+RESUME: 
+SEED: 2
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 20
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MMADAPTER:
+    ADAPTER_DIM: 32
+    ADAPTER_END: 12
+    ADAPTER_SCALE: 0.001
+    ADAPTER_START: 5
+    PREC: amp
+    TEXT_CTX_INIT: a photo of a
+  MME:
+    LMDA: 0.1
+  NAME: MultiModalAdapter
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 2.3.1+cu121
+Is debug build: False
+CUDA used to build PyTorch: 12.1
+ROCM used to build PyTorch: N/A
+
+OS: Microsoft Windows 11 ×¨Òµ°æ
+GCC version: Could not collect
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: N/A
+
+Python version: 3.8.19 (default, Mar 20 2024, 19:55:45) [MSC v.1916 64 bit (AMD64)] (64-bit runtime)
+Python platform: Windows-10-10.0.22621-SP0
+Is CUDA available: True
+CUDA runtime version: Could not collect
+CUDA_MODULE_LOADING set to: LAZY
+GPU models and configuration: GPU 0: NVIDIA GeForce RTX 4070 Ti SUPER
+Nvidia driver version: 555.99
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+CPU:
+Architecture=9
+CurrentClockSpeed=3500
+DeviceID=CPU0
+Family=205
+L2CacheSize=20480
+L2CacheSpeed=
+Manufacturer=GenuineIntel
+MaxClockSpeed=3500
+Name=13th Gen Intel(R) Core(TM) i5-13600KF
+ProcessorType=3
+Revision=
+
+Versions of relevant libraries:
+[pip3] flake8==3.7.9
+[pip3] numpy==1.24.3
+[pip3] torch==2.3.1+cu121
+[pip3] torchaudio==2.3.1+cu121
+[pip3] torchvision==0.18.1
+[conda] blas                      1.0                         mkl  
+[conda] cudatoolkit               10.2.89              h74a9793_1  
+[conda] mkl                       2021.4.0                 pypi_0    pypi
+[conda] mkl-service               2.4.0            py38h2bbff1b_0  
+[conda] mkl_fft                   1.3.1            py38h277e83a_0  
+[conda] mkl_random                1.2.2            py38hf11a4ad_0  
+[conda] numpy                     1.24.3           py38hf95b240_0  
+[conda] numpy-base                1.24.3           py38h005ec55_0  
+[conda] pytorch-mutex             1.0                         cpu    pytorch
+[conda] torch                     2.3.1+cu121              pypi_0    pypi
+[conda] torchaudio                2.3.1+cu121              pypi_0    pypi
+[conda] torchvision               0.18.1                 py38_cpu    pytorch
+        Pillow (10.3.0)
+
+Loading trainer: MultiModalAdapter
+Loading dataset: OxfordPets
+Reading split from D:\Code\Data\oxford_pets\split_zhou_OxfordPets.json
+Loading preprocessed few-shot data from D:\Code\Data\oxford_pets\split_fewshot\shot_16-seed_2.pkl
+SUBSAMPLE BASE CLASSES!
+Building transform_train
++ random resized crop (size=(224, 224), scale=(0.08, 1.0))
++ random flip
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ----------
+Dataset    OxfordPets
+# classes  19
+# train_x  304
+# val      76
+# test     1,881
+---------  ----------
+Loading CLIP (backbone: ViT-B/16)
+Building custom CLIP
+Turning off gradients in both the image and the text encoder
+Parameters to be updated: {'adapter_learner.text_adapter.9.up.weight', 'adapter_learner.text_adapter.6.down.0.weight', 'adapter_learner.visual_adapter.10.up.bias', 'adapter_learner.text_adapter.9.down.0.weight', 'adapter_learner.visual_adapter.5.up.weight', 'adapter_learner.visual_adapter.7.down.0.weight', 'adapter_learner.text_adapter.5.down.0.bias', 'adapter_learner.visual_adapter.10.up.weight', 'adapter_learner.shared_adapter.7.0.bias', 'adapter_learner.visual_adapter.12.up.bias', 'adapter_learner.shared_adapter.12.0.bias', 'adapter_learner.visual_adapter.6.up.bias', 'adapter_learner.text_adapter.12.down.0.weight', 'adapter_learner.visual_adapter.12.down.0.weight', 'adapter_learner.shared_adapter.5.0.weight', 'adapter_learner.text_adapter.7.up.bias', 'adapter_learner.shared_adapter.9.0.weight', 'adapter_learner.text_adapter.5.up.bias', 'adapter_learner.text_adapter.8.up.bias', 'adapter_learner.visual_adapter.6.down.0.weight', 'adapter_learner.shared_adapter.8.0.bias', 'adapter_learner.shared_adapter.8.0.weight', 'adapter_learner.visual_adapter.5.down.0.bias', 'adapter_learner.text_adapter.8.down.0.weight', 'adapter_learner.visual_adapter.11.up.weight', 'adapter_learner.visual_adapter.5.down.0.weight', 'adapter_learner.text_adapter.5.up.weight', 'adapter_learner.visual_adapter.10.down.0.bias', 'adapter_learner.visual_adapter.8.up.weight', 'adapter_learner.text_adapter.10.down.0.bias', 'adapter_learner.text_adapter.12.up.weight', 'adapter_learner.visual_adapter.9.down.0.weight', 'adapter_learner.shared_adapter.9.0.bias', 'adapter_learner.visual_adapter.6.down.0.bias', 'adapter_learner.shared_adapter.11.0.bias', 'adapter_learner.text_adapter.5.down.0.weight', 'adapter_learner.text_adapter.7.up.weight', 'adapter_learner.text_adapter.9.up.bias', 'adapter_learner.shared_adapter.10.0.bias', 'adapter_learner.visual_adapter.9.up.bias', 'adapter_learner.shared_adapter.6.0.bias', 'adapter_learner.text_adapter.7.down.0.weight', 'adapter_learner.visual_adapter.8.up.bias', 'adapter_learner.shared_adapter.12.0.weight', 'adapter_learner.visual_adapter.6.up.weight', 'adapter_learner.text_adapter.12.up.bias', 'adapter_learner.visual_adapter.12.up.weight', 'adapter_learner.text_adapter.6.down.0.bias', 'adapter_learner.text_adapter.7.down.0.bias', 'adapter_learner.text_adapter.10.up.bias', 'adapter_learner.text_adapter.10.down.0.weight', 'adapter_learner.text_adapter.11.up.bias', 'adapter_learner.visual_adapter.7.up.bias', 'adapter_learner.text_adapter.6.up.weight', 'adapter_learner.text_adapter.11.down.0.weight', 'adapter_learner.text_adapter.10.up.weight', 'adapter_learner.text_adapter.9.down.0.bias', 'adapter_learner.visual_adapter.7.down.0.bias', 'adapter_learner.visual_adapter.12.down.0.bias', 'adapter_learner.text_adapter.8.down.0.bias', 'adapter_learner.text_adapter.11.down.0.bias', 'adapter_learner.visual_adapter.9.down.0.bias', 'adapter_learner.visual_adapter.11.up.bias', 'adapter_learner.text_adapter.6.up.bias', 'adapter_learner.shared_adapter.7.0.weight', 'adapter_learner.visual_adapter.9.up.weight', 'adapter_learner.visual_adapter.10.down.0.weight', 'adapter_learner.visual_adapter.7.up.weight', 'adapter_learner.text_adapter.11.up.weight', 'adapter_learner.visual_adapter.8.down.0.weight', 'adapter_learner.text_adapter.8.up.weight', 'adapter_learner.visual_adapter.11.down.0.bias', 'adapter_learner.shared_adapter.6.0.weight', 'adapter_learner.text_adapter.12.down.0.bias', 'adapter_learner.visual_adapter.8.down.0.bias', 'adapter_learner.visual_adapter.11.down.0.weight', 'adapter_learner.shared_adapter.11.0.weight', 'adapter_learner.shared_adapter.10.0.weight', 'adapter_learner.shared_adapter.5.0.bias', 'adapter_learner.visual_adapter.5.up.bias'}
+Number of trainable parameters: 674560
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+Initialize tensorboard (log_dir=output/base2new/train_base/oxford_pets/shots_16/MultiModalAdapter/seed2\tensorboard)
+epoch [1/5] batch [1/19] time 26.324 (26.324) data 25.123 (25.123) loss 0.8755 (0.8755) lr 1.5000e-03 eta 0:41:14
+epoch [1/5] batch [2/19] time 0.049 (13.186) data 0.000 (12.562) loss 0.2318 (0.5536) lr 1.5000e-03 eta 0:20:26
+epoch [1/5] batch [3/19] time 0.051 (8.808) data 0.000 (8.374) loss 0.3952 (0.5008) lr 1.5000e-03 eta 0:13:30
+epoch [1/5] batch [4/19] time 0.049 (6.618) data 0.000 (6.281) loss 1.0093 (0.6279) lr 1.5000e-03 eta 0:10:02
+epoch [1/5] batch [5/19] time 0.048 (5.304) data 0.000 (5.025) loss 1.2228 (0.7469) lr 1.5000e-03 eta 0:07:57
+epoch [1/5] batch [6/19] time 0.050 (4.428) data 0.001 (4.187) loss 1.9549 (0.9482) lr 1.5000e-03 eta 0:06:34
+epoch [1/5] batch [7/19] time 0.047 (3.802) data 0.000 (3.589) loss 0.4554 (0.8778) lr 1.5000e-03 eta 0:05:34
+epoch [1/5] batch [8/19] time 0.049 (3.333) data 0.000 (3.141) loss 1.1235 (0.9085) lr 1.5000e-03 eta 0:04:49
+epoch [1/5] batch [9/19] time 0.056 (2.969) data 0.000 (2.792) loss 1.0551 (0.9248) lr 1.5000e-03 eta 0:04:15
+epoch [1/5] batch [10/19] time 0.057 (2.678) data 0.000 (2.512) loss 0.3620 (0.8686) lr 1.5000e-03 eta 0:03:47
+epoch [1/5] batch [11/19] time 0.048 (2.439) data 0.000 (2.284) loss 0.6149 (0.8455) lr 1.5000e-03 eta 0:03:24
+epoch [1/5] batch [12/19] time 0.052 (2.240) data 0.001 (2.094) loss 0.2585 (0.7966) lr 1.5000e-03 eta 0:03:05
+epoch [1/5] batch [13/19] time 0.049 (2.071) data 0.000 (1.933) loss 0.6885 (0.7883) lr 1.5000e-03 eta 0:02:49
+epoch [1/5] batch [14/19] time 0.048 (1.927) data 0.000 (1.795) loss 1.3388 (0.8276) lr 1.5000e-03 eta 0:02:36
+epoch [1/5] batch [15/19] time 0.049 (1.802) data 0.000 (1.675) loss 1.1051 (0.8461) lr 1.5000e-03 eta 0:02:24
+epoch [1/5] batch [16/19] time 0.049 (1.692) data 0.000 (1.570) loss 1.7605 (0.9032) lr 1.5000e-03 eta 0:02:13
+epoch [1/5] batch [17/19] time 0.059 (1.596) data 0.000 (1.478) loss 0.4229 (0.8750) lr 1.5000e-03 eta 0:02:04
+epoch [1/5] batch [18/19] time 0.057 (1.510) data 0.000 (1.396) loss 0.5085 (0.8546) lr 1.5000e-03 eta 0:01:56
+epoch [1/5] batch [19/19] time 0.048 (1.433) data 0.000 (1.322) loss 0.4457 (0.8331) lr 1.3568e-03 eta 0:01:48
+epoch [2/5] batch [1/19] time 24.879 (24.879) data 24.766 (24.766) loss 0.1535 (0.1535) lr 1.3568e-03 eta 0:31:05
+epoch [2/5] batch [2/19] time 0.088 (12.484) data 0.000 (12.383) loss 0.2610 (0.2072) lr 1.3568e-03 eta 0:15:23
+epoch [2/5] batch [3/19] time 0.081 (8.349) data 0.001 (8.256) loss 0.8822 (0.4322) lr 1.3568e-03 eta 0:10:09
+epoch [2/5] batch [4/19] time 0.083 (6.283) data 0.000 (6.192) loss 0.3609 (0.4144) lr 1.3568e-03 eta 0:07:32
+epoch [2/5] batch [5/19] time 0.095 (5.045) data 0.000 (4.953) loss 0.3675 (0.4050) lr 1.3568e-03 eta 0:05:58
+epoch [2/5] batch [6/19] time 0.136 (4.227) data 0.001 (4.128) loss 0.0672 (0.3487) lr 1.3568e-03 eta 0:04:55
+epoch [2/5] batch [7/19] time 0.102 (3.638) data 0.000 (3.538) loss 0.4049 (0.3567) lr 1.3568e-03 eta 0:04:10
+epoch [2/5] batch [8/19] time 0.050 (3.189) data 0.001 (3.096) loss 0.2931 (0.3488) lr 1.3568e-03 eta 0:03:36
+epoch [2/5] batch [9/19] time 0.051 (2.840) data 0.000 (2.752) loss 0.1405 (0.3256) lr 1.3568e-03 eta 0:03:10
+epoch [2/5] batch [10/19] time 0.096 (2.566) data 0.000 (2.477) loss 0.5778 (0.3508) lr 1.3568e-03 eta 0:02:49
+epoch [2/5] batch [11/19] time 0.118 (2.344) data 0.000 (2.252) loss 0.9838 (0.4084) lr 1.3568e-03 eta 0:02:32
+epoch [2/5] batch [12/19] time 0.064 (2.154) data 0.000 (2.064) loss 0.3524 (0.4037) lr 1.3568e-03 eta 0:02:17
+epoch [2/5] batch [13/19] time 0.057 (1.992) data 0.000 (1.905) loss 0.5052 (0.4115) lr 1.3568e-03 eta 0:02:05
+epoch [2/5] batch [14/19] time 0.074 (1.855) data 0.001 (1.769) loss 0.2864 (0.4026) lr 1.3568e-03 eta 0:01:55
+epoch [2/5] batch [15/19] time 0.105 (1.739) data 0.000 (1.651) loss 0.1557 (0.3861) lr 1.3568e-03 eta 0:01:46
+epoch [2/5] batch [16/19] time 0.085 (1.635) data 0.000 (1.548) loss 0.2321 (0.3765) lr 1.3568e-03 eta 0:01:38
+epoch [2/5] batch [17/19] time 0.108 (1.545) data 0.000 (1.457) loss 0.6255 (0.3912) lr 1.3568e-03 eta 0:01:31
+epoch [2/5] batch [18/19] time 0.068 (1.463) data 0.000 (1.376) loss 0.3183 (0.3871) lr 1.3568e-03 eta 0:01:24
+epoch [2/5] batch [19/19] time 0.049 (1.389) data 0.000 (1.304) loss 0.4653 (0.3912) lr 9.8176e-04 eta 0:01:19
+epoch [3/5] batch [1/19] time 26.205 (26.205) data 25.971 (25.971) loss 0.8514 (0.8514) lr 9.8176e-04 eta 0:24:27
+epoch [3/5] batch [2/19] time 0.049 (13.127) data 0.000 (12.985) loss 0.2069 (0.5292) lr 9.8176e-04 eta 0:12:01
+epoch [3/5] batch [3/19] time 0.052 (8.769) data 0.001 (8.657) loss 0.3221 (0.4601) lr 9.8176e-04 eta 0:07:53
+epoch [3/5] batch [4/19] time 0.051 (6.589) data 0.000 (6.493) loss 0.3785 (0.4397) lr 9.8176e-04 eta 0:05:49
+epoch [3/5] batch [5/19] time 0.061 (5.283) data 0.000 (5.194) loss 0.3672 (0.4252) lr 9.8176e-04 eta 0:04:34
+epoch [3/5] batch [6/19] time 0.051 (4.411) data 0.000 (4.329) loss 0.1099 (0.3727) lr 9.8176e-04 eta 0:03:44
+epoch [3/5] batch [7/19] time 0.049 (3.788) data 0.000 (3.710) loss 0.9453 (0.4545) lr 9.8176e-04 eta 0:03:09
+epoch [3/5] batch [8/19] time 0.048 (3.321) data 0.000 (3.246) loss 0.2374 (0.4273) lr 9.8176e-04 eta 0:02:42
+epoch [3/5] batch [9/19] time 0.047 (2.957) data 0.000 (2.886) loss 0.6180 (0.4485) lr 9.8176e-04 eta 0:02:21
+epoch [3/5] batch [10/19] time 0.052 (2.666) data 0.000 (2.597) loss 0.0909 (0.4128) lr 9.8176e-04 eta 0:02:05
+epoch [3/5] batch [11/19] time 0.050 (2.429) data 0.000 (2.361) loss 0.3689 (0.4088) lr 9.8176e-04 eta 0:01:51
+epoch [3/5] batch [12/19] time 0.048 (2.230) data 0.000 (2.164) loss 0.6002 (0.4247) lr 9.8176e-04 eta 0:01:40
+epoch [3/5] batch [13/19] time 0.055 (2.063) data 0.000 (1.998) loss 0.1122 (0.4007) lr 9.8176e-04 eta 0:01:30
+epoch [3/5] batch [14/19] time 0.054 (1.919) data 0.000 (1.855) loss 0.1551 (0.3831) lr 9.8176e-04 eta 0:01:22
+epoch [3/5] batch [15/19] time 0.049 (1.795) data 0.000 (1.731) loss 0.5964 (0.3974) lr 9.8176e-04 eta 0:01:15
+epoch [3/5] batch [16/19] time 0.048 (1.685) data 0.000 (1.623) loss 0.2979 (0.3911) lr 9.8176e-04 eta 0:01:09
+epoch [3/5] batch [17/19] time 0.048 (1.589) data 0.000 (1.528) loss 0.3688 (0.3898) lr 9.8176e-04 eta 0:01:03
+epoch [3/5] batch [18/19] time 0.058 (1.504) data 0.000 (1.443) loss 0.0315 (0.3699) lr 9.8176e-04 eta 0:00:58
+epoch [3/5] batch [19/19] time 0.058 (1.428) data 0.000 (1.367) loss 0.3115 (0.3668) lr 5.1824e-04 eta 0:00:54
+epoch [4/5] batch [1/19] time 25.448 (25.448) data 25.150 (25.150) loss 0.3835 (0.3835) lr 5.1824e-04 eta 0:15:41
+epoch [4/5] batch [2/19] time 0.073 (12.760) data 0.001 (12.576) loss 0.4498 (0.4167) lr 5.1824e-04 eta 0:07:39
+epoch [4/5] batch [3/19] time 0.062 (8.528) data 0.000 (8.384) loss 0.1036 (0.3123) lr 5.1824e-04 eta 0:04:58
+epoch [4/5] batch [4/19] time 0.062 (6.411) data 0.000 (6.288) loss 0.4965 (0.3584) lr 5.1824e-04 eta 0:03:37
+epoch [4/5] batch [5/19] time 0.050 (5.139) data 0.000 (5.030) loss 0.8227 (0.4512) lr 5.1824e-04 eta 0:02:49
+epoch [4/5] batch [6/19] time 0.049 (4.291) data 0.000 (4.192) loss 0.0469 (0.3838) lr 5.1824e-04 eta 0:02:17
+epoch [4/5] batch [7/19] time 0.063 (3.687) data 0.000 (3.593) loss 0.6698 (0.4247) lr 5.1824e-04 eta 0:01:54
+epoch [4/5] batch [8/19] time 0.092 (3.237) data 0.000 (3.144) loss 0.2147 (0.3984) lr 5.1824e-04 eta 0:01:37
+epoch [4/5] batch [9/19] time 0.050 (2.883) data 0.000 (2.795) loss 0.1242 (0.3680) lr 5.1824e-04 eta 0:01:23
+epoch [4/5] batch [10/19] time 0.050 (2.600) data 0.000 (2.515) loss 0.4206 (0.3732) lr 5.1824e-04 eta 0:01:12
+epoch [4/5] batch [11/19] time 0.051 (2.368) data 0.001 (2.287) loss 0.1295 (0.3511) lr 5.1824e-04 eta 0:01:03
+epoch [4/5] batch [12/19] time 0.067 (2.176) data 0.001 (2.096) loss 0.3231 (0.3487) lr 5.1824e-04 eta 0:00:56
+epoch [4/5] batch [13/19] time 0.050 (2.013) data 0.000 (1.935) loss 0.3382 (0.3479) lr 5.1824e-04 eta 0:00:50
+epoch [4/5] batch [14/19] time 0.055 (1.873) data 0.001 (1.797) loss 0.1291 (0.3323) lr 5.1824e-04 eta 0:00:44
+epoch [4/5] batch [15/19] time 0.069 (1.753) data 0.000 (1.677) loss 0.1800 (0.3222) lr 5.1824e-04 eta 0:00:40
+epoch [4/5] batch [16/19] time 0.052 (1.646) data 0.000 (1.572) loss 0.4742 (0.3317) lr 5.1824e-04 eta 0:00:36
+epoch [4/5] batch [17/19] time 0.049 (1.552) data 0.000 (1.480) loss 0.3136 (0.3306) lr 5.1824e-04 eta 0:00:32
+epoch [4/5] batch [18/19] time 0.050 (1.469) data 0.001 (1.398) loss 0.1690 (0.3216) lr 5.1824e-04 eta 0:00:29
+epoch [4/5] batch [19/19] time 0.051 (1.394) data 0.001 (1.324) loss 0.4057 (0.3260) lr 1.4324e-04 eta 0:00:26
+epoch [5/5] batch [1/19] time 25.218 (25.218) data 24.996 (24.996) loss 0.1396 (0.1396) lr 1.4324e-04 eta 0:07:33
+epoch [5/5] batch [2/19] time 0.050 (12.634) data 0.000 (12.498) loss 0.0956 (0.1176) lr 1.4324e-04 eta 0:03:34
+epoch [5/5] batch [3/19] time 0.053 (8.440) data 0.000 (8.332) loss 0.0367 (0.0906) lr 1.4324e-04 eta 0:02:15
+epoch [5/5] batch [4/19] time 0.049 (6.342) data 0.000 (6.249) loss 0.1109 (0.0957) lr 1.4324e-04 eta 0:01:35
+epoch [5/5] batch [5/19] time 0.049 (5.084) data 0.000 (4.999) loss 0.3463 (0.1458) lr 1.4324e-04 eta 0:01:11
+epoch [5/5] batch [6/19] time 0.059 (4.246) data 0.001 (4.166) loss 0.5746 (0.2173) lr 1.4324e-04 eta 0:00:55
+epoch [5/5] batch [7/19] time 0.060 (3.648) data 0.000 (3.571) loss 0.0394 (0.1919) lr 1.4324e-04 eta 0:00:43
+epoch [5/5] batch [8/19] time 0.060 (3.200) data 0.000 (3.125) loss 0.5182 (0.2327) lr 1.4324e-04 eta 0:00:35
+epoch [5/5] batch [9/19] time 0.075 (2.852) data 0.000 (2.777) loss 0.4727 (0.2593) lr 1.4324e-04 eta 0:00:28
+epoch [5/5] batch [10/19] time 0.081 (2.575) data 0.000 (2.500) loss 0.0719 (0.2406) lr 1.4324e-04 eta 0:00:23
+epoch [5/5] batch [11/19] time 0.048 (2.345) data 0.000 (2.272) loss 0.2802 (0.2442) lr 1.4324e-04 eta 0:00:18
+epoch [5/5] batch [12/19] time 0.048 (2.154) data 0.001 (2.083) loss 0.7137 (0.2833) lr 1.4324e-04 eta 0:00:15
+epoch [5/5] batch [13/19] time 0.049 (1.992) data 0.000 (1.923) loss 0.1521 (0.2732) lr 1.4324e-04 eta 0:00:11
+epoch [5/5] batch [14/19] time 0.050 (1.853) data 0.000 (1.786) loss 0.1342 (0.2633) lr 1.4324e-04 eta 0:00:09
+epoch [5/5] batch [15/19] time 0.050 (1.733) data 0.000 (1.667) loss 0.2776 (0.2643) lr 1.4324e-04 eta 0:00:06
+epoch [5/5] batch [16/19] time 0.060 (1.629) data 0.001 (1.562) loss 0.5244 (0.2805) lr 1.4324e-04 eta 0:00:04
+epoch [5/5] batch [17/19] time 0.048 (1.536) data 0.000 (1.471) loss 0.3350 (0.2837) lr 1.4324e-04 eta 0:00:03
+epoch [5/5] batch [18/19] time 0.049 (1.453) data 0.000 (1.389) loss 0.3707 (0.2886) lr 1.4324e-04 eta 0:00:01
+epoch [5/5] batch [19/19] time 0.047 (1.379) data 0.000 (1.316) loss 0.3393 (0.2912) lr 0.0000e+00 eta 0:00:00
+Checkpoint saved to output/base2new/train_base/oxford_pets/shots_16/MultiModalAdapter/seed2\adapter_learner\model.pth.tar-5
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+=> result
+* total: 1,881
+* correct: 1,790
+* accuracy: 95.2%
+* error: 4.8%
+* macro_f1: 95.1%
+Elapsed: 0:02:48
